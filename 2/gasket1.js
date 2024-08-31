@@ -40,7 +40,19 @@ window.onload = function init()
     // last point and a randomly chosen vertex
 
     for ( var i = 0; points.length < NumPoints; ++i ) {
-        var j = Math.floor(Math.random() * 3);
+        var x = Math.random();
+        var j
+
+        if (x <= 0.9) {
+            j = 0;
+        }
+        else if(x <= 0.95) {
+            j = 1;
+        }
+        else{
+            j = 2;
+        }
+            
         p = add( points[i], vertices[j] );
         p = scale( 0.5, p );
         points.push( p );
