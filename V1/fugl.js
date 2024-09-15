@@ -237,7 +237,7 @@ function endGame() {
 
     // Leiklokið skilaboð
     var gameOverMessage = document.createElement('div');
-    gameOverMessage.id = 'game-over';
+    gameOverMessage.id = 'gameover';
     gameOverMessage.style.position = 'absolute';
     gameOverMessage.style.top = canvas.offsetTop + canvas.height / 2 - 24 + 'px';
     gameOverMessage.style.left = canvas.offsetLeft + canvas.width / 2 - 100 + 'px';
@@ -245,15 +245,15 @@ function endGame() {
     gameOverMessage.style.fontSize = '48px';
     gameOverMessage.style.fontWeight = 'bold';
     gameOverMessage.style.pointerEvents = 'none';
-    gameOverMessage.textContent = 'Game Over!';
+    gameOverMessage.textContent = 'Mmm matur';
     document.body.appendChild(gameOverMessage);
 
     var resetButton = document.createElement('button');
-    resetButton.id = 'reset-button';
+    resetButton.id = 'resetbutton';
     resetButton.style.position = 'absolute';
     resetButton.style.top = canvas.offsetTop + canvas.height / 2 + 50 + 'px';
     resetButton.style.left = canvas.offsetLeft + canvas.width / 2 - 50 + 'px';
-    resetButton.textContent = 'Restart Game';
+    resetButton.textContent = 'Veida meira?';
     document.body.appendChild(resetButton);
 
     // Fylgist með reset takkanum
@@ -277,12 +277,12 @@ function resetGame() {
     createBirds();
 
     // Drepa reset takkan
-    var resetButton = document.getElementById('reset-button');
+    var resetButton = document.getElementById('resetbutton');
     if (resetButton) {
         resetButton.remove();
     }
     // Drepa leik lokið skilaboð
-    var gameOverMessage = document.getElementById('game-over');
+    var gameOverMessage = document.getElementById('gameover');
     if (gameOverMessage) {
         gameOverMessage.remove();
     }
