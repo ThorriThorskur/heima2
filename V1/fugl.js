@@ -16,7 +16,6 @@ var vertices = [
     vec2(0.05, -0.9)   // Neðri hægri punktur
 ];
 
-// Offsets in the buffer for different elements
 var bufferOffsets = {
     paddleStart: 0,
     birdsStart: 3,
@@ -35,29 +34,23 @@ window.onload = function init() {
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(0.8, 0.8, 0.8, 1.0);
 
-    // Load shaders and initialize attribute buffers
     var program = initShaders(gl, "vertex-shader", "fragment-shader");
     gl.useProgram(program);
     
-    // Load the triangle data into the GPU
     bufferId = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
 
-    // Allocate enough space for all vertices (paddle + bullets + birds)
-    var totalVertices = 3 + numBirds * 4 + 100 * 4 + 5 * 2; // Paddle (3) + Birds + Max Bullets + Score lines
-    gl.bufferData(gl.ARRAY_BUFFER, totalVertices * 2 * 4, gl.DYNAMIC_DRAW); // 2 (x, y) * 4 bytes per float
+    var totalVertices = 3 + numBirds * 4 + 100 * 4 + 5 * 2;
+    gl.bufferData(gl.ARRAY_BUFFER, totalVertices * 2 * 4, gl.DYNAMIC_DRAW);
 
-    // Associate our shader variables with our data buffer
     var vPosition = gl.getAttribLocation(program, "vPosition");
     gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(vPosition);
 
-    // Event listener for mouse movement
     canvas.addEventListener('mousemove', function(e) {
         updateTrianglePosition(e);
     });
 
-    // Event listener for mouse clicks
     canvas.addEventListener('click', function(e) {
         fireBullet();
     });
@@ -69,7 +62,6 @@ window.onload = function init() {
 
 // Uppfærir staðsetingu veiðimanns
 function updateTrianglePosition(event) {
-    
     var rect = canvas.getBoundingClientRect();
     var mouseX = event.clientX - rect.left;
     var normalizedX = (2 * mouseX / canvas.width) - 1;
@@ -79,7 +71,6 @@ function updateTrianglePosition(event) {
     for (var i = 0; i < vertices.length; i++) {
         vertices[i][0] += deltaX;
     }
-
 
     gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
     gl.bufferSubData(gl.ARRAY_BUFFER, bufferOffsets.paddleStart * 2 * 4, flatten(vertices));
@@ -290,13 +281,11 @@ function resetGame() {
     if (resetButton) {
         resetButton.remove();
     }
-
     // Drepa leik lokið skilaboð
     var gameOverMessage = document.getElementById('game-over');
     if (gameOverMessage) {
         gameOverMessage.remove();
     }
-
     // Endurræsa leikja lúpunni
     render();
 }
