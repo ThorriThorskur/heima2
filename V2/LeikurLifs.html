@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>3D Cube with WebGL</title>
+    <!-- Include JavaScript files for WebGL utilities -->
+    <script type="text/javascript" src="webgl-utils.js"></script>
+    <script type="text/javascript" src="initShaders.js"></script>
+    <script type="text/javascript" src="MV.js"></script>
+</head>
+<body>
+    <!-- WebGL canvas element where the cube will be rendered -->
+    <canvas id="gl-canvas" width="1000" height="800"></canvas>
+
+    <!-- Vertex Shader Script -->
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        attribute vec4 vPosition;
+        attribute vec4 vColor;
+        uniform mat4 uModelViewMatrix;
+        uniform mat4 uProjectionMatrix;
+        varying vec4 fColor;
+        
+        void main() {
+            // Apply model-view and projection transformations
+            gl_Position = uProjectionMatrix * uModelViewMatrix * vPosition;
+            fColor = vColor;
+        }
+    </script>
+
+    <!-- Fragment Shader Script -->
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        precision mediump float;
+        varying vec4 fColor;
+
+        void main() {
+            gl_FragColor = fColor;
+        }
+    </script>
+
+    <!-- Include the main JavaScript file at the end of the body -->
+    <script type="text/javascript" src="grid.js"></script>
+</body>
+</html>
